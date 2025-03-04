@@ -58,9 +58,16 @@ while(totalEmpHrs < MAX_HRS_IN_MONTH && totalWorkingDays < NUMBER_OF_WORKING_DAY
     let empCheck = Math.floor(Math.random()*10)%3;
     let empHrs = getWorkingHours(empCheck)
     totalEmpHrs+=empHrs;
-    empDailyWageArr.push(empHrs);
+    empDailyWageArr.push(calcDailyWage(empHrs));
   }
 let empWage = calcDailyWage(totalEmpHrs)
-console.log("UC06 - Total Days: "+totalWorkingDays+" Total Hrs: "+totalEmpHrs+ " Emp Wage: "+empWage)
+// console.log("UC06 - Total Days: "+totalWorkingDays+" Total Hrs: "+totalEmpHrs+ " Emp Wage: "+empWage)
 // console.log(empDailyWageArr)
 
+//UC 7A
+let totalEmployeeWage = 0;
+function sum(dailyWage){
+  totalEmployeeWage+=dailyWage
+}
+empDailyWageArr.forEach(sum);
+console.log("UC7A -Total Days : "+totalWorkingDays+" Total Hrs: "+totalEmpHrs+" Emp Wage: "+totalEmployeeWage);
