@@ -70,4 +70,17 @@ function sum(dailyWage){
   totalEmployeeWage+=dailyWage
 }
 empDailyWageArr.forEach(sum);
-console.log("UC7A -Total Days : "+totalWorkingDays+" Total Hrs: "+totalEmpHrs+" Emp Wage: "+totalEmployeeWage);
+// console.log("UC7A -Total Days : "+totalWorkingDays+" Total Hrs: "+totalEmpHrs+" Emp Wage: "+totalEmployeeWage);
+
+//UC 7B
+let dailyCntr = 0;
+
+function mapDayWithWage(dailyWage){
+  dailyCntr++;
+  return dailyCntr+" = "+dailyWage;
+}
+
+let mapDayWithWageArr = empDailyWageArr.map(mapDayWithWage);
+console.log("UC7B- Daily Wage Map");
+console.log(mapDayWithWageArr)
+
