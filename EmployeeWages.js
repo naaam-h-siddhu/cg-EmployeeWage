@@ -194,4 +194,6 @@ console.log("UC 11A Total Hours: "+totalHrs+" Total Wages: "+totalWages)
 process.stdout.write("UC 11B Logging Full Work Days ")
 empDailyHrsAndWageArr.filter(dailyHrsAndWage => dailyHrsAndWage.dailyHours == 8).forEach(dailyHrsAndWage => process.stdout.write(dailyHrsAndWage.toString()))
 
+let partWorkingDaysStrArr = empDailyHrsAndWageArr.filter(dailyHrsAndWage => dailyHrsAndWage.dailyHours == 4).map(dailyHrsAndWage =>dailyHrsAndWage.toString())
+console.log("\nUC 11C PartWorkingDayString: "+partWorkingDaysStrArr)
 
