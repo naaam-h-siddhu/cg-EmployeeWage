@@ -197,3 +197,5 @@ empDailyHrsAndWageArr.filter(dailyHrsAndWage => dailyHrsAndWage.dailyHours == 8)
 let partWorkingDaysStrArr = empDailyHrsAndWageArr.filter(dailyHrsAndWage => dailyHrsAndWage.dailyHours == 4).map(dailyHrsAndWage =>dailyHrsAndWage.toString())
 console.log("\nUC 11C PartWorkingDayString: "+partWorkingDaysStrArr)
 
+let nonWorkingDayNums = empDailyHrsAndWageArr.filter(dailyHrsAndWage => dailyHrsAndWage.dailyHours == 0).map(dailyHrsAndWage => dailyHrsAndWage.dayNum)
+console.log("UC 11D NonWorkingDayNums: "+nonWorkingDayNums)
