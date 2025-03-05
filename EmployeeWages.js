@@ -55,20 +55,38 @@ let totalWorkingDays = 0
 let empDailyWageArr = new Array();
 let empDailyWageMap = new Map();
 let empDailyHrsMap = new Map();
+
+// creating an array to store the object UC 10- use object array to store the data
+let empDailyHrsAndWageArr = new Array();
+
 while(totalEmpHrs <= MAX_HRS_IN_MONTH && totalWorkingDays < NUMBER_OF_WORKING_DAY){
-    totalWorkingDays++;
-    let empCheck = Math.floor(Math.random()*10)%3;
-    let empHrs = getWorkingHours(empCheck)
-    totalEmpHrs+=empHrs;
-    empDailyWageArr.push(calcDailyWage(empHrs));
-    empDailyWageMap.set(totalWorkingDays,calcDailyWage(empHrs))
-    empDailyHrsMap.set(totalWorkingDays,empHrs)
+  totalWorkingDays++;
+  let empCheck = Math.floor(Math.random()*10)%3;
+  let empHrs = getWorkingHours(empCheck)
+  totalEmpHrs+=empHrs;
+  empDailyWageArr.push(calcDailyWage(empHrs));
+  empDailyWageMap.set(totalWorkingDays,calcDailyWage(empHrs))
+  empDailyHrsMap.set(totalWorkingDays,empHrs)
+  empDailyHrsAndWageArr.push(
+    {
+      dayNum: totalWorkingDays,
+      dailyHours: empHrs,
+      dailyWage: calcDailyWage(empHrs),
+      toString(){
+        return '\n'+this.dayNum+" => Working Hours is "+this.dailyHours+" And Wage Earned: "+this.dailyWage;
+      }
+    }
+  )
 
-  }
+}
+console.log("UC 10 Showing daily wage and daily hrs using object array: "+empDailyHrsAndWageArr)
 
-console.log(totalEmpHrs);
-console.log(empDailyHrsMap)
-console.log(empDailyWageMap)
+
+
+
+// console.log(totalEmpHrs);
+// console.log(empDailyHrsMap)
+// console.log(empDailyWageMap)
 function totalWages(totalWage,dailyWage){
   return totalWage + dailyWage
 }
@@ -143,7 +161,7 @@ let count = 0
 let totalHours = Array.from(empDailyHrsMap.values ()).reduce(findTotal,0)
 let totalSalary = empDailyWageArr.filter(dailyWage => dailyWage>0).reduce(findTotal,0)
 
-console.log("UC09- Emp Wage with Arrow. : "+"Total hours : "+totalHours+"Total Wages: "+totalSalary)
+// console.log("UC09- Emp Wage with Arrow. : "+"Total hours : "+totalHours+"Total Wages: "+totalSalary)
 
 
 let nonWorkingDays = new Array()
@@ -157,6 +175,6 @@ empDailyHrsMap.forEach((value,key)=> {
 
 })
 
-console.log("Full working days: "+fullWorkingDays.toString())
-console.log("Part Working days: "+partWorkingDays.toString())
-console.log("no working days: "+nonWorkingDays.toString())
+// console.log("Full working days: "+fullWorkingDays.toString())
+// console.log("Part Working days: "+partWorkingDays.toString())
+// console.log("no working days: "+nonWorkingDays.toString())
