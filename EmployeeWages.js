@@ -29,6 +29,7 @@ function  getWorkingHours(empCheck) {
 let empHrs = 0;
 empCheck = Math.floor(Math.random()*10)%3;
 empHrs  = getWorkingHours(empCheck);
+{
 // let empWage = empHrs * WAGE_PER_HOUR;
 // console.log("Emp Wage : "+empWage);
 
@@ -43,7 +44,7 @@ empHrs  = getWorkingHours(empCheck);
 // }
 // empWage = empHrs  * WAGE_PER_HOUR;
 // console.log("Total hrs : "+empHrs+" Emp wages :"+empWage);
-
+}
 function calcDailyWage(empHrs){
   return empHrs * WAGE_PER_HOUR;
 }
@@ -53,7 +54,7 @@ let totalEmpHrs =0
 let totalWorkingDays = 0
 let empDailyWageArr = new Array();
 let empDailyWageMap = new Map();
-
+let empDailyHrsMap = new Map();
 while(totalEmpHrs <= MAX_HRS_IN_MONTH && totalWorkingDays < NUMBER_OF_WORKING_DAY){
     totalWorkingDays++;
     let empCheck = Math.floor(Math.random()*10)%3;
@@ -61,15 +62,19 @@ while(totalEmpHrs <= MAX_HRS_IN_MONTH && totalWorkingDays < NUMBER_OF_WORKING_DA
     totalEmpHrs+=empHrs;
     empDailyWageArr.push(calcDailyWage(empHrs));
     empDailyWageMap.set(totalWorkingDays,calcDailyWage(empHrs))
+    empDailyHrsMap.set(totalWorkingDays,empHrs)
 
   }
+
+console.log(totalEmpHrs);
+console.log(empDailyHrsMap)
 console.log(empDailyWageMap)
 function totalWages(totalWage,dailyWage){
   return totalWage + dailyWage
 }
 console.log("UC 8 - Emp Wage Map totalHrs:  "+
   Array.from(empDailyWageMap.values()).reduce(totalWages,0))
-
+{
 // let empWage = calcDailyWage(totalEmpHrs)
 // console.log("UC06 - Total Days: "+totalWorkingDays+" Total Hrs: "+totalEmpHrs+ " Emp Wage: "+empWage)
 // console.log(empDailyWageArr)
@@ -130,3 +135,28 @@ console.log("UC 8 - Emp Wage Map totalHrs:  "+
 //   return numOfDays
 // }
 // console.log("UC 7G - Number of Days Emp Worked: "+empDailyWageArr.reduce(totalDaysWorked,0))
+
+}
+//uc 9
+const findTotal = (totalVal, dailyVal)=> (totalVal+ dailyVal)
+let count = 0
+let totalHours = Array.from(empDailyHrsMap.values ()).reduce(findTotal,0)
+let totalSalary = empDailyWageArr.filter(dailyWage => dailyWage>0).reduce(findTotal,0)
+
+console.log("UC09- Emp Wage with Arrow. : "+"Total hours : "+totalHours+"Total Wages: "+totalSalary)
+
+
+let nonWorkingDays = new Array()
+let partWorkingDays = new Array()
+let fullWorkingDays = new Array()
+
+empDailyHrsMap.forEach((value,key)=> {
+  if(value === 8) fullWorkingDays.push(key)
+  else if (value === 4) partWorkingDays.push(key)
+    else nonWorkingDays.push(key)
+
+})
+
+console.log("Full working days: "+fullWorkingDays.toString())
+console.log("Part Working days: "+partWorkingDays.toString())
+console.log("no working days: "+nonWorkingDays.toString())
