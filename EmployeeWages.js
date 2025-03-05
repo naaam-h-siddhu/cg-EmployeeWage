@@ -200,44 +200,82 @@ console.log("\nUC 11C PartWorkingDayString: "+partWorkingDaysStrArr)
 let nonWorkingDayNums = empDailyHrsAndWageArr.filter(dailyHrsAndWage => dailyHrsAndWage.dailyHours == 0).map(dailyHrsAndWage => dailyHrsAndWage.dayNum)
 console.log("UC 11D NonWorkingDayNums: "+nonWorkingDayNums)
 
-class EmployeePayrollData{
+class EmployeePayrollData {
   id;
   salary;
   gender;
   startDate;
 
   constructor(...params) {
-    this.id = params[0];
-    this.salary = params[2];
-    this.name = params[1];
-    this.gender = params[3];
+    let idRegex = /^[1-9][0-9]*$/;
+    if (idRegex.test(params[0])) {
+      this.id = params[0];
+    } else {
+      throw new Error("Id must be positive");
+    }
+
+    let salaryRegex = /^[1-9][0-9]*$/;
+    if (salaryRegex.test(params[1])) {
+      this.salary = params[1];
+    } else {
+      throw new Error("Salary must be positive");
+    }
+
+    this.name = params[2];
+
+    let genderRegex = /^[MF]$/i;
+    if (genderRegex.test(params[3])) {
+      this.gender = params[3];
+    } else {
+      throw new Error("Gender must be M/F");
+    }
+
+    if (params[4] && !this.isValidStartDate(params[4])) {
+      throw new Error("Start Date cannot be in the future!");
+    }
     this.startDate = params[4];
   }
-  get name() {return this._name;}
+
+  isValidStartDate(startDate) {
+    let today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return startDate <= today;
+  }
+
+  get name() {
+    return this._name;
+  }
+  
   set name(name) {
-    let nameRegex = RegExp("^[A-Z]{1}[a-z]{3,}$");
-    if(nameRegex.test(name)) {
+    let nameRegex = /^[A-Z][a-z]{3,}$/;
+    if (nameRegex.test(name)) {
       this._name = name;
-    }else{
+    } else {
       throw new Error("Name is Incorrect!!");
     }
   }
-  toString(){
-    const options = {year: 'numeric',month:'long',day:'numeric'}
-    const empDate = this.startDate === undefined ? "undefined": this.startDate.toLocaleDateString('en-US',options)
 
-    return "id="+this.id+", name= "+this.name+", salary= "+this.salary+", "+"gender="+this.gender+", startDate="+empDate;
+  toString() {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const empDate =
+      this.startDate === undefined
+        ? "undefined"
+        : this.startDate.toLocaleDateString("en-US", options);
+
+    return `id=${this.id}, name=${this.name}, salary=${this.salary}, gender=${this.gender}, startDate=${empDate}`;
   }
-  
 }
-let employeePayrollData = new EmployeePayrollData(1,"Siddhu",30000)
-console.log(employeePayrollData.toString())
-try{
-  employeePayrollData.name = "Sudhakar"
-  console.log(employeePayrollData.toString());
+
+try {
+  let emp1 = new EmployeePayrollData(1, 30000, "Sudhakar", "M", new Date(2024, 1, 10));
+  console.log(emp1.toString());
+} catch (e) {
+  console.error(e);
 }
-catch(e){
-  console.error(e)
+
+try {
+  let emp2 = new EmployeePayrollData(2, 40000, "Nitish", "M", new Date(2025, 1, 1));
+  console.log(emp2.toString());
+} catch (e) {
+  console.error(e);
 }
-let newEmployeePayrollData = new EmployeePayrollData(2,"Nitish",40000,"M",new Date(2024,4,20))
-console.log(newEmployeePayrollData.toString())
